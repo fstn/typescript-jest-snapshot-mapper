@@ -1,7 +1,5 @@
-
 import {getSnapshotMapperMetadataArgsStorage} from "./global";
 import {SnapshotMapperPropertyMetadataArgs} from "./SnapshotMapperPropertyMetadataArgs";
-
 
 export const getValueForProperty = (scope?: string) => (target: any, meta: SnapshotMapperPropertyMetadataArgs, context: any) => {
     const cb = meta.callBack;
@@ -14,15 +12,18 @@ export const getValueForProperty = (scope?: string) => (target: any, meta: Snaps
 }
 
 export const get = (scope?: string) => (instance: any, context: any) => {
+    if (!instance) {
+        return instance
+    }
     const allMeta = getSnapshotMapperMetadataArgsStorage()
     const classMeta: SnapshotMapperPropertyMetadataArgs[] = allMeta.properties
         .filter((p: SnapshotMapperPropertyMetadataArgs) =>
             (Object.getPrototypeOf(instance)?.constructor.toString() == p.target.toString() &&
-            (scope === p.scope || !p.scope)) ||
-        (Object.getPrototypeOf(Object.getPrototypeOf(instance))?.constructor.toString() == p.target.toString() &&
-            (scope === p.scope || !p.scope)) ||
-        (Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(instance)))?.constructor.toString() == p.target.toString() &&
-            (scope === p.scope || !p.scope)))
+                (scope === p.scope || !p.scope)) ||
+            (Object.getPrototypeOf(Object.getPrototypeOf(instance))?.constructor.toString() == p.target.toString() &&
+                (scope === p.scope || !p.scope)) ||
+            (Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(instance)))?.constructor.toString() == p.target.toString() &&
+                (scope === p.scope || !p.scope)))
     for (const meta of classMeta) {
         const value = getValueForProperty(scope)(instance, meta, context)
         if (value || value === false) {
