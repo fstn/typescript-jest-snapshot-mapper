@@ -4,7 +4,7 @@ import {SnapshotMapperPropertyMetadataArgs} from "../SnapshotMapperPropertyMetad
 
 
 export const MapToForSnapshot = (scope?: string) =>
-    (cb: ( context: any, scope?: any) => {}, ...params: any[]): PropertyDecorator => {
+    (cb: ( context: any, scope?: any) => any, ...params: any[]): PropertyDecorator => {
         return function (object: Object, propertyName: string | symbol) {
             getSnapshotMapperMetadataArgsStorage().properties.push({
                 scope: scope,

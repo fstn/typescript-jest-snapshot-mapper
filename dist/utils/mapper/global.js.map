@@ -1,0 +1,1 @@
+{"version":3,"file":"global.js","sourceRoot":"./src/","sources":["utils/mapper/global.ts"],"names":[],"mappings":";;;AAAA,2FAAsF;AAGtF,SAAgB,oCAAoC;IAChD,IAAI,CAAE,MAAc,CAAC,qCAAqC;QACrD,MAAc,CAAC,qCAAqC,GAAG,IAAI,qEAAiC,EAAE,CAAC;IAEpG,OAAQ,MAAc,CAAC,qCAAqC,CAAE;AAClE,CAAC;AALD,oFAKC"}
