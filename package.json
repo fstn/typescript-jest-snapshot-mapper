@@ -1,7 +1,7 @@
 {
   "name": "@fstn/typescript-jest-snapshot-mapper",
   "description": "Jest property mapper for snapshot test based on Typescript classes decorators",
-  "version": "1.0.72",
+  "version": "1.0.73",
   "author": "Stephen ZAMBAUX",
   "license": "MIT",
   "main": "dist/index.js",
