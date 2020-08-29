@@ -12,5 +12,5 @@ export class Owner{
     lastName!: string;
     // @ts-ignore
     @MapToForSnapshot()(applyToNested)
-    car!: Car;
+    car!: Car[];
 }

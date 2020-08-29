@@ -9,13 +9,15 @@ export const ApplyMapperForProperty = (scope?: string) => (instance: any, meta: 
     const cb = meta.callBack;
     const params = meta.params || []
     if (cb === applyToNested) {
-        const value = get(scope)(instance[meta.propertyName], context)
-        instance[meta.propertyName] = value
+        if (Array.isArray(instance[meta.propertyName])) {
+            instance[meta.propertyName] = instance[meta.propertyName].map((i: any) => get(scope)(i, context))
+        } else {
+            instance[meta.propertyName] = get(scope)(instance[meta.propertyName], context)
+        }
     } else if (cb === remove) {
         delete instance[meta.propertyName]
     } else if (cb !== undefined) {
-        const value = cb(...params, context, scope)
-        instance[meta.propertyName] = value
+        instance[meta.propertyName] = cb(...params, context, scope)
     }
     return instance
 }

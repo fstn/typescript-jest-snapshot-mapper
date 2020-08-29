@@ -20,21 +20,21 @@ describe(`Test for generator`, () => {
         let ownerWithFakeData = new Owner()
         ownerWithFakeData.firstName = faker.name.firstName()
         ownerWithFakeData.lastName = faker.name.lastName()
-        ownerWithFakeData.car = new Car()
-        ownerWithFakeData.car.color = "black"
+        ownerWithFakeData.car = [new Car()]
+        ownerWithFakeData.car[0].color = "black"
         const ownerWithOrangeCar = get("ORANGE_CAR")(ownerWithFakeData, {})
-        expect(ownerWithOrangeCar.car.color).toBe("orange")
+        expect(ownerWithOrangeCar.car[0].color).toBe("orange")
     })
 
     it('Mapper should preserve car', async () => {
         let ownerWithFakeData = new Owner()
         ownerWithFakeData.firstName = faker.name.firstName()
         ownerWithFakeData.lastName = faker.name.lastName()
-        ownerWithFakeData.car = new Car()
-        ownerWithFakeData.car.color = "black"
-        ownerWithFakeData.car.other = "other"
+        ownerWithFakeData.car = [new Car()]
+        ownerWithFakeData.car[0].color = "black"
+        ownerWithFakeData.car[0].other = "other"
         const ownerWithOrangeCar = get("ORANGE_CAR")(ownerWithFakeData, {})
-        expect(ownerWithOrangeCar.car.other).toBe("other")
+        expect(ownerWithOrangeCar.car[0].other).toBe("other")
     })
 
     it('Mapper should not crash with undefined car', async () => {
@@ -42,19 +42,19 @@ describe(`Test for generator`, () => {
         ownerWithFakeData.firstName = faker.name.firstName()
         ownerWithFakeData.lastName = faker.name.lastName()
         const ownerWithOrangeCar = getTestSafe(ownerWithFakeData, {})
-        expect(ownerWithOrangeCar?.car?.other).toBe(undefined)
+        expect(ownerWithOrangeCar?.car).toBe(undefined)
     })
 
     it('Mapper should remove toRemove property', async () => {
         let ownerWithFakeData = new Owner()
         ownerWithFakeData.firstName = faker.name.firstName()
         ownerWithFakeData.lastName = faker.name.lastName()
-        ownerWithFakeData.car = new Car()
-        ownerWithFakeData.car.color = "black"
-        ownerWithFakeData.car.other = "other"
-        ownerWithFakeData.car.toRemove = "toRemove"
+        ownerWithFakeData.car = [new Car()]
+        ownerWithFakeData.car[0].color = "black"
+        ownerWithFakeData.car[0].other = "other"
+        ownerWithFakeData.car[0].toRemove = "toRemove"
         const ownerWithOrangeCar = getTestSafe(ownerWithFakeData, {})
-        expect(ownerWithOrangeCar?.car?.toRemove).toBeUndefined()
+        expect(ownerWithOrangeCar?.car[0]?.toRemove).toBeUndefined()
     })
 
 })

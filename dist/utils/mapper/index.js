@@ -8,15 +8,18 @@ exports.ApplyMapperForProperty = (scope) => (instance, meta, context) => {
     const cb = meta.callBack;
     const params = meta.params || [];
     if (cb === exports.applyToNested) {
-        const value = exports.get(scope)(instance[meta.propertyName], context);
-        instance[meta.propertyName] = value;
+        if (Array.isArray(instance[meta.propertyName])) {
+            instance[meta.propertyName] = instance[meta.propertyName].map((i) => exports.get(scope)(i, context));
+        }
+        else {
+            instance[meta.propertyName] = exports.get(scope)(instance[meta.propertyName], context);
+        }
     }
     else if (cb === exports.remove) {
         delete instance[meta.propertyName];
     }
     else if (cb !== undefined) {
-        const value = cb(...params, context, scope);
-        instance[meta.propertyName] = value;
+        instance[meta.propertyName] = cb(...params, context, scope);
     }
     return instance;
 };
